@@ -1,0 +1,70 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                    xmlns:local="clr-namespace:HNPStyles">
+    <Color x:Key="LightPrimaryColor">#e0e0e0</Color>
+    <Color x:Key="DarkPrimaryColor">#303030</Color>
+    
+    <sys:Double x:Key="OutlineBrushLightParameter">7</sys:Double>
+    <sys:Double x:Key="OutlineBrushDarkParameter">12</sys:Double>
+    <sys:Double x:Key="OutlineThickness">3</sys:Double>
+    
+    <sys:Double x:Key="InnerBrushLightParamater">14</sys:Double>
+    <sys:Double x:Key="InnerBrushDarkParamater">10</sys:Double>
+    
+    <sys:Double x:Key="LightAngle">45</sys:Double>
+    <local:InnerShapes x:Key="InnerShape">Flat</local:InnerShapes>
+    
+    <sys:Double x:Key="IntensityRate">1</sys:Double>
+    
+    <sys:Double x:Key="ScaleFactor">0.03</sys:Double>
+
+    <sys:Double x:Key="Distance">5</sys:Double>
+    <sys:Double x:Key="DistanceToBlurRadiusFactor">2</sys:Double>
+
+    <CornerRadius x:Key="CornerRadius">10</CornerRadius>
+    <sys:Double x:Key="TextDistance">2</sys:Double>
+    <sys:Double x:Key="TextDistanceToBlurRadiusFactor">2</sys:Double>
+
+    <sys:Double x:Key="BaseLength">40</sys:Double>
+    <Thickness x:Key="DefaultMargin">8</Thickness>
+
+    <Duration x:Key="ShortTime">0:0:0.05</Duration>
+    <Duration x:Key="NormalTime">0:0:0.2</Duration>
+    <Duration x:Key="LongTime">0:0:1</Duration>
+    <sys:TimeSpan x:Key="NormalBeginTime">0:0:0.2</sys:TimeSpan>
+
+    <sys:Double x:Key="Intensity">0.2</sys:Double>
+    <sys:Double x:Key="MinusIntensity">-0.2</sys:Double>
+
+    <LinearGradientBrush x:Key="VividBrush1">
+        <GradientStop Color="Red"/>
+        <GradientStop Color="Yellow" Offset="1"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="VividBrush2">
+        <GradientStop Color="Lime"/>
+        <GradientStop Color="Cyan" Offset="1"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="VividBrush3">
+        <GradientStop Color="Blue"/>
+        <GradientStop Color="Magenta" Offset="1"/>
+    </LinearGradientBrush>
+
+    <sys:Double x:Key="ForegroundThreshold">128</sys:Double>
+    
+    <CircleEase x:Key="CircleIn" EasingMode="EaseIn"/>
+    <CircleEase x:Key="CircleOut" EasingMode="EaseOut"/>
+    
+    <CubicEase x:Key="CubicInOut" EasingMode="EaseInOut"/>
+
+    <Storyboard x:Key="IntensityToZero">
+        <DoubleAnimation Duration="{StaticResource ShortTime}" To="0" Storyboard.TargetName="PART_Base" Storyboard.TargetProperty="Intensity"/>
+    </Storyboard>
+    <Storyboard x:Key="IntensityToPositive">
+        <DoubleAnimation Duration="{StaticResource NormalTime}" To="{StaticResource Intensity}" Storyboard.TargetName="PART_Base" Storyboard.TargetProperty="Intensity"/>
+    </Storyboard>
+    <Storyboard x:Key="IntensityToNegative">
+        <DoubleAnimation Duration="{StaticResource ShortTime}" To="{StaticResource MinusIntensity}" Storyboard.TargetName="PART_Base" Storyboard.TargetProperty="Intensity"/>
+    </Storyboard>
+
+</ResourceDictionary>

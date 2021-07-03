@@ -1,0 +1,147 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:HNPStyles"
+                    xmlns:inter="clr-namespace:HNPStyles.Internal">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/HNPStyles;component/Resources.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+
+    <local:MultiplyDoubleConverter x:Key="MultiplyDoubleConverter"/>
+
+    <Storyboard x:Key="BulletMarquee" RepeatBehavior="Forever">
+        <DoubleAnimation Duration="{StaticResource LongTime}" BeginTime="{StaticResource NormalBeginTime}" From="0" To="2" Storyboard.TargetProperty="BarStart"/>
+        <DoubleAnimation Duration="{StaticResource LongTime}" From="0" To="2" Storyboard.TargetProperty="BarEnd"/>
+    </Storyboard>
+
+    <Storyboard x:Key="RoundTripMarquee" RepeatBehavior="Forever" AutoReverse="True">
+        <DoubleAnimation Duration="{StaticResource LongTime}" From="0" To="1" Storyboard.TargetProperty="BarStart" EasingFunction="{StaticResource CircleIn}"/>
+        <DoubleAnimation Duration="{StaticResource LongTime}" From="0" To="1" Storyboard.TargetProperty="BarEnd" EasingFunction="{StaticResource  CircleOut}"/>
+    </Storyboard>
+
+    <Storyboard x:Key="CrossMarquee" RepeatBehavior="Forever" AutoReverse="True">
+        <DoubleAnimation Duration="{StaticResource LongTime}" From="0" To="1" Storyboard.TargetProperty="BarStart"/>
+        <DoubleAnimation Duration="{StaticResource LongTime}" From="1" To="0" Storyboard.TargetProperty="BarEnd" EasingFunction="{StaticResource CubicInOut}"/>
+    </Storyboard>
+
+    <Style x:Key="ProgressBarBase" TargetType="{x:Type inter:ProgressBarBase}">
+        <Setter Property="Width" Value="{Binding BaseLength, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:Panel}, Mode=OneWay, Converter={StaticResource MultiplyDoubleConverter}, ConverterParameter=2}"/>
+        <Setter Property="Height" Value="{Binding BaseLength, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:Panel}, Mode=OneWay, Converter={StaticResource MultiplyDoubleConverter}, ConverterParameter=0.2}"/>
+        <Setter Property="Margin" Value="{Binding DefaultMargin, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:Panel}, Mode=OneWay}"/>
+        <Setter Property="VividBrush" Value="{Binding VividBrush, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:Panel}, Mode=OneWay}"/>
+    </Style>
+
+    <Style TargetType="{x:Type local:RectangleProgressBar}" BasedOn="{StaticResource ProgressBarBase}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:RectangleProgressBar}">
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="ProgressBarModes" Value="Normal">
+                            <Trigger.EnterActions>
+                                <StopStoryboard BeginStoryboardName="BulletMarquee"/>
+                                <StopStoryboard BeginStoryboardName="RoundTripMarquee"/>
+                                <StopStoryboard BeginStoryboardName="CrossMarquee"/>
+                            </Trigger.EnterActions>
+                        </Trigger>
+                        <Trigger Property="ProgressBarModes" Value="BulletMarquee">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard Name="BulletMarquee" Storyboard="{StaticResource BulletMarquee}"/>
+                            </Trigger.EnterActions>
+                        </Trigger>
+                        <Trigger Property="ProgressBarModes" Value="RoundTripMarquee">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard Name="RoundTripMarquee" Storyboard="{StaticResource RoundTripMarquee}"/>
+                            </Trigger.EnterActions>
+                        </Trigger>
+                        <Trigger Property="ProgressBarModes" Value="CrossMarquee">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard Name="CrossMarquee" Storyboard="{StaticResource CrossMarquee}"/>
+                            </Trigger.EnterActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                    <local:RectangleBase Intensity="{StaticResource Intensity}" IsOutlinedWhenIntensityZero="True">
+                        <Grid>
+                            <Grid.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="Background" Value="{Binding VividBrush, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}"/>
+                                    <Setter Property="CornerRadius" Value="{Binding CornerRadius, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:Panel}, Mode=OneWay}"/>
+                                </Style>
+                            </Grid.Resources>
+                            <Border HorizontalAlignment="Left"
+                                    Visibility="{Binding HorizontalVisibility, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}"
+                                    Width="{Binding BarLength, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}">
+                                <Border.RenderTransform>
+                                    <TranslateTransform X="{Binding BarPosition, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}"/>
+                                </Border.RenderTransform>
+                            </Border>
+                            <Border VerticalAlignment="Top"
+                                    Visibility="{Binding VerticalVisibility, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}"
+                                    Height="{Binding BarLength, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}">
+                                <Border.RenderTransform>
+                                    <TranslateTransform Y="{Binding BarPosition, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}"/>
+                                </Border.RenderTransform>
+                            </Border>
+                        </Grid>
+                    </local:RectangleBase>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type local:RoundProgressBar}" BasedOn="{StaticResource ProgressBarBase}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:RoundProgressBar}">
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="ProgressBarModes" Value="Normal">
+                            <Trigger.EnterActions>
+                                <StopStoryboard BeginStoryboardName="BulletMarquee"/>
+                                <StopStoryboard BeginStoryboardName="RoundTripMarquee"/>
+                                <StopStoryboard BeginStoryboardName="CrossMarquee"/>
+                            </Trigger.EnterActions>
+                        </Trigger>
+                        <Trigger Property="ProgressBarModes" Value="BulletMarquee">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard Name="BulletMarquee" Storyboard="{StaticResource BulletMarquee}"/>
+                            </Trigger.EnterActions>
+                        </Trigger>
+                        <Trigger Property="ProgressBarModes" Value="RoundTripMarquee">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard Name="RoundTripMarquee" Storyboard="{StaticResource RoundTripMarquee}"/>
+                            </Trigger.EnterActions>
+                        </Trigger>
+                        <Trigger Property="ProgressBarModes" Value="CrossMarquee">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard Name="CrossMarquee" Storyboard="{StaticResource CrossMarquee}"/>
+                            </Trigger.EnterActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                    <local:RoundBase Intensity="{StaticResource Intensity}" IsOutlinedWhenIntensityZero="True">
+                        <Grid>
+                            <Grid.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="Background" Value="{Binding VividBrush, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}"/>
+                                    <Setter Property="CornerRadius" Value="{Binding CornerRadius, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}"/>
+                                </Style>
+                            </Grid.Resources>
+                            <Border HorizontalAlignment="Left"
+                                    Visibility="{Binding HorizontalVisibility, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}"
+                                    Width="{Binding BarLength, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}">
+                                <Border.RenderTransform>
+                                    <TranslateTransform X="{Binding BarPosition, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}"/>
+                                </Border.RenderTransform>
+                            </Border>
+                            <Border VerticalAlignment="Top"
+                                    Visibility="{Binding VerticalVisibility, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}"
+                                    Height="{Binding BarLength, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}">
+                                <Border.RenderTransform>
+                                    <TranslateTransform Y="{Binding BarPosition, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}"/>
+                                </Border.RenderTransform>
+                            </Border>
+                        </Grid>
+                    </local:RoundBase>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+</ResourceDictionary>

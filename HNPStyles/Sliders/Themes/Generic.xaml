@@ -1,0 +1,102 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:HNPStyles"
+                    xmlns:inter="clr-namespace:HNPStyles.Internal">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/HNPStyles;component/Resources.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+
+    <local:MultiplyDoubleConverter x:Key="MultiplyDoubleConverter"/>
+    <local:MultiplyThicknessConverter x:Key="MultiplyThicknessConverter"/>
+
+    <Style x:Key="SliderBase" TargetType="{x:Type inter:SliderBase}">
+        <Setter Property="Width" Value="{Binding BaseLength, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:Panel}, Mode=OneWay, Converter={StaticResource MultiplyDoubleConverter}, ConverterParameter=2}"/>
+        <Setter Property="Height" Value="{Binding BaseLength, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:Panel}, Mode=OneWay, Converter={StaticResource MultiplyDoubleConverter}, ConverterParameter=0.5}"/>
+        <Setter Property="Margin" Value="{Binding DefaultMargin, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:Panel}, Mode=OneWay}"/>
+        <Setter Property="Padding" Value="{Binding DefaultMargin, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:Panel}, Mode=OneWay, Converter={StaticResource MultiplyThicknessConverter}, ConverterParameter=0.6}"/>
+        <Setter Property="VividBrush" Value="{Binding VividBrush, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:Panel}, Mode=OneWay}"/>
+    </Style>
+
+    <Style TargetType="{x:Type local:RectangleSlider}" BasedOn="{StaticResource SliderBase}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:RectangleSlider}">
+                    <Grid>
+                        <Grid Margin="{Binding Padding, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}">
+                            <local:RectangleBase x:Name="PART_Base" Intensity="{StaticResource MinusIntensity}" IsOutlinedWhenIntensityZero="True"/>
+                            <Grid IsHitTestVisible="False" Clip="{Binding Geometry, ElementName=PART_Base}">
+                                <Grid.Resources>
+                                    <Style TargetType="Border">
+                                        <Setter Property="Background" Value="{Binding VividBrush, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}"/>
+                                    </Style>
+                                </Grid.Resources>
+                                <Border HorizontalAlignment="Left"
+                                        Visibility="{Binding HorizontalVisibility, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}"
+                                        Width="{Binding BarLength, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}"/>
+                                <Border VerticalAlignment="Top"
+                                        Visibility="{Binding VerticalVisibility, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}"
+                                        Height="{Binding BarLength, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}"/>
+                            </Grid>
+                        </Grid>
+                        <local:RectangleBase x:Name="PART_HorizontalEndGrip" HorizontalAlignment="Left" Intensity="{StaticResource Intensity}" IsOutlinedWhenIntensityZero="True" Cursor="ScrollWE"
+                                             Visibility="{Binding HorizontalVisibility, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}"
+                                             Width="{Binding ActualHeight, RelativeSource={RelativeSource Mode=Self}, Mode=OneWay}">
+                            <local:RectangleBase.RenderTransform>
+                                <TranslateTransform X="{Binding GripEnd, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}"/>
+                            </local:RectangleBase.RenderTransform>
+                        </local:RectangleBase>
+                        <local:RectangleBase x:Name="PART_VerticalEndGrip" VerticalAlignment="Top" Intensity="{StaticResource Intensity}" IsOutlinedWhenIntensityZero="True" Cursor="ScrollNS"
+                                             Visibility="{Binding VerticalVisibility, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}"
+                                             Height="{Binding ActualWidth, RelativeSource={RelativeSource Mode=Self}, Mode=OneWay}">
+                            <local:RectangleBase.RenderTransform>
+                                <TranslateTransform Y="{Binding GripEnd, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}"/>
+                            </local:RectangleBase.RenderTransform>
+                        </local:RectangleBase>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type local:RoundSlider}" BasedOn="{StaticResource SliderBase}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:RoundSlider}">
+                    <Grid>
+                        <Grid Margin="{Binding Padding, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}">
+                            <Grid.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="Background" Value="{Binding VividBrush, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}"/>
+                                </Style>
+                            </Grid.Resources>
+                            <local:RoundBase x:Name="PART_Base" Intensity="{StaticResource MinusIntensity}" IsOutlinedWhenIntensityZero="True"/>
+                            <Grid IsHitTestVisible="False" Clip="{Binding Geometry, ElementName=PART_Base}">
+                                <Border HorizontalAlignment="Left"
+                                        Visibility="{Binding HorizontalVisibility, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}"
+                                        Width="{Binding BarLength, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}"/>
+                                <Border VerticalAlignment="Top"
+                                        Visibility="{Binding VerticalVisibility, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}"
+                                        Height="{Binding BarLength, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}"/>
+                            </Grid>
+                        </Grid>
+                        <local:RoundBase x:Name="PART_HorizontalEndGrip" HorizontalAlignment="Left" Intensity="{StaticResource Intensity}" IsOutlinedWhenIntensityZero="True" Cursor="ScrollWE"
+                                             Visibility="{Binding HorizontalVisibility, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}"
+                                             Width="{Binding ActualHeight, RelativeSource={RelativeSource Mode=Self}, Mode=OneWay}">
+                            <local:RoundBase.RenderTransform>
+                                <TranslateTransform X="{Binding GripEnd, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}"/>
+                            </local:RoundBase.RenderTransform>
+                        </local:RoundBase>
+                        <local:RoundBase x:Name="PART_VerticalEndGrip" VerticalAlignment="Top" Intensity="{StaticResource Intensity}" IsOutlinedWhenIntensityZero="True" Cursor="ScrollNS"
+                                             Visibility="{Binding VerticalVisibility, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}"
+                                             Height="{Binding ActualWidth, RelativeSource={RelativeSource Mode=Self}, Mode=OneWay}">
+                            <local:RoundBase.RenderTransform>
+                                <TranslateTransform Y="{Binding GripEnd, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}"/>
+                            </local:RoundBase.RenderTransform>
+                        </local:RoundBase>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

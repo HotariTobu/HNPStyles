@@ -1,0 +1,50 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:HNPStyles">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="HNPStyles;component/Resources.xaml"/>
+        <ResourceDictionary Source="HNPStyles;component/Bases/Themes/Generic.xaml"/>
+        <ResourceDictionary Source="HNPStyles;component/Buttons/Themes/Generic.xaml"/>
+        <ResourceDictionary Source="HNPStyles;component/Sliders/Themes/Generic.xaml"/>
+        <ResourceDictionary Source="HNPStyles;component/Switches/Themes/Generic.xaml"/>
+        <ResourceDictionary Source="HNPStyles;component/TextBoxes/Themes/Generic.xaml"/>
+        <ResourceDictionary Source="HNPStyles;component/ScrollBars/Themes/Generic.xaml"/>
+        <ResourceDictionary Source="HNPStyles;component/ComboBoxes/Themes/Generic.xaml"/>
+        <ResourceDictionary Source="HNPStyles;component/ProgressBars/Themes/Generic.xaml"/>
+        <ResourceDictionary Source="HNPStyles;component/RadioButtons/Themes/Generic.xaml"/>
+        <ResourceDictionary Source="HNPStyles;component/RangeSliders/Themes/Generic.xaml"/>
+        <ResourceDictionary Source="HNPStyles;component/ToggleButtons/Themes/Generic.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+
+    <Style TargetType="{x:Type local:Panel}">
+        <Setter Property="PrimaryColor" Value="{StaticResource LightPrimaryColor}"/>
+
+        <Setter Property="OutlineBrushLightParameter" Value="{StaticResource OutlineBrushLightParameter}"/>
+        <Setter Property="OutlineBrushDarkParameter" Value="{StaticResource OutlineBrushDarkParameter}"/>
+        <Setter Property="OutlineThickness" Value="{StaticResource OutlineThickness}"/>
+
+        <Setter Property="InnerBrushLightParameter" Value="{StaticResource InnerBrushLightParamater}"/>
+        <Setter Property="InnerBrushDarkParameter" Value="{StaticResource InnerBrushDarkParamater}"/>
+        
+        <Setter Property="LightAngle" Value="{StaticResource LightAngle}"/>
+        <Setter Property="InnerShape" Value="{StaticResource InnerShape}"/>
+        
+        <Setter Property="IntensityRate" Value="{StaticResource IntensityRate}"/>
+        
+        <Setter Property="ScaleFactor" Value="{StaticResource ScaleFactor}"/>
+        
+        <Setter Property="Distance" Value="{StaticResource Distance}"/>
+        <Setter Property="DistanceToBlurRadiusFactor" Value="{StaticResource DistanceToBlurRadiusFactor}"/>
+
+        <Setter Property="CornerRadius" Value="{StaticResource CornerRadius}"/>
+        <Setter Property="TextDistance" Value="{StaticResource TextDistance}"/>
+        <Setter Property="TextDistanceToBlurRadiusFactor" Value="{StaticResource TextDistanceToBlurRadiusFactor}"/>
+
+        <Setter Property="BaseLength" Value="{StaticResource BaseLength}"/>
+        <Setter Property="DefaultMargin" Value="{StaticResource DefaultMargin}"/>
+
+        <Setter Property="VividBrush" Value="{StaticResource VividBrush1}"/>
+
+        <Setter Property="ForegroundThreshold" Value="{StaticResource ForegroundThreshold}"/>
+    </Style>
+</ResourceDictionary>

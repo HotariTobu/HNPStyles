@@ -1,0 +1,88 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:HNPStyles"
+                    xmlns:inter="clr-namespace:HNPStyles.Internal">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/HNPStyles;component/Resources.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+
+    <local:MultiplyDoubleConverter x:Key="MultiplyDoubleConverter"/>
+
+    <Storyboard x:Key="TurnOn">
+        <DoubleAnimation Duration="{StaticResource NormalTime}" To="1" Storyboard.TargetProperty="RelativePosition"/>
+    </Storyboard>
+
+    <Storyboard x:Key="TurnOff">
+        <DoubleAnimation Duration="{StaticResource NormalTime}" To="0" Storyboard.TargetProperty="RelativePosition"/>
+    </Storyboard>
+
+    <Style x:Key="SwitchBase" TargetType="{x:Type inter:SwitchBase}">
+        <Setter Property="Width" Value="{Binding BaseLength, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:Panel}, Mode=OneWay}"/>
+        <Setter Property="Height" Value="{Binding BaseLength, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:Panel}, Mode=OneWay, Converter={StaticResource MultiplyDoubleConverter}, ConverterParameter=0.5}"/>
+        <Setter Property="Margin" Value="{Binding DefaultMargin, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:Panel}, Mode=OneWay}"/>
+        <Setter Property="VividBrush" Value="{Binding VividBrush, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:Panel}, Mode=OneWay}"/>
+    </Style>
+
+    <Style TargetType="{x:Type local:RectangleSwitch}" BasedOn="{StaticResource SwitchBase}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:RectangleSwitch}">
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsOn" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard Storyboard="{StaticResource TurnOn}"/>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard Storyboard="{StaticResource TurnOff}"/>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                    <Grid>
+                        <local:RectangleBase x:Name="PART_Base" Intensity="{StaticResource MinusIntensity}" IsOutlinedWhenIntensityZero="True"/>
+                        <Rectangle HorizontalAlignment="Left" Clip="{Binding Geometry, ElementName=PART_Base}"
+                                   Fill="{Binding VividBrush, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}"
+                                   Width="{Binding InnerWidth, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}"/>
+                        <local:RectangleBase HorizontalAlignment="Left" Intensity="{StaticResource Intensity}"
+                                             Width="{Binding ActualHeight, RelativeSource={RelativeSource Mode=Self}, Mode=OneWay}">
+                            <local:RectangleBase.RenderTransform>
+                                <TranslateTransform X="{Binding AbsolutePosition, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}"/>
+                            </local:RectangleBase.RenderTransform>
+                        </local:RectangleBase>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type local:RoundSwitch}" BasedOn="{StaticResource SwitchBase}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:RoundSwitch}">
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsOn" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard Storyboard="{StaticResource TurnOn}"/>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard Storyboard="{StaticResource TurnOff}"/>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                    <Grid>
+                        <local:RoundBase x:Name="PART_Base" Intensity="{StaticResource MinusIntensity}" IsOutlinedWhenIntensityZero="True"/>
+                        <Rectangle HorizontalAlignment="Left" Clip="{Binding Geometry, ElementName=PART_Base}"
+                                   Fill="{Binding VividBrush, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}"
+                                   Width="{Binding InnerWidth, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}"/>
+                        <local:EllipseBase HorizontalAlignment="Left" Intensity="{StaticResource Intensity}"
+                                           Width="{Binding ActualHeight, RelativeSource={RelativeSource Mode=Self}, Mode=OneWay}">
+                            <local:EllipseBase.RenderTransform>
+                                <TranslateTransform X="{Binding AbsolutePosition, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}"/>
+                            </local:EllipseBase.RenderTransform>
+                        </local:EllipseBase>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+</ResourceDictionary>

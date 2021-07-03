@@ -1,0 +1,160 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:HNPStyles"
+                    xmlns:inter="clr-namespace:HNPStyles.Internal">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/HNPStyles;component/Resources.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+
+    <local:MultiplyDoubleConverter x:Key="MultiplyDoubleConverter"/>
+
+    <Style TargetType="{x:Type inter:ScrollBarBase}">
+        <Setter Property="Width" Value="{Binding BaseLength, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:Panel}, Mode=OneWay, Converter={StaticResource MultiplyDoubleConverter}, ConverterParameter=0.3}"/>
+        <Setter Property="Height" Value="{Binding BaseLength, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:Panel}, Mode=OneWay, Converter={StaticResource MultiplyDoubleConverter}, ConverterParameter=0.3}"/>
+        <Setter Property="Margin" Value="{Binding DefaultMargin, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:Panel}, Mode=OneWay}"/>
+    </Style>
+
+    <Style x:Key="ScrollViewerBase" TargetType="{x:Type inter:ScrollViewerBase}">
+        <Setter Property="HorizontalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="CanZoom" Value="True"/>
+        <Setter Property="PanningMode" Value="Both"/>
+    </Style>
+
+    <Style TargetType="{x:Type local:RectangleScrollViewer}" BasedOn="{StaticResource ScrollViewerBase}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:RectangleScrollViewer}">
+                    <Grid Background="Transparent">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Canvas x:Name="PART_Canvas" ClipToBounds="True"
+                                Margin="{Binding Padding, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}">
+                            <ContentPresenter x:Name="PART_ContentHost"
+                                              Canvas.Left="{Binding X, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}"
+                                              Canvas.Top="{Binding Y, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}">
+                                <ContentPresenter.RenderTransform>
+                                    <ScaleTransform ScaleX="{Binding Scale, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}"
+                                                    ScaleY="{Binding Scale, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}"/>
+                                </ContentPresenter.RenderTransform>
+                            </ContentPresenter>
+                        </Canvas>
+                        <inter:ScrollBarBase Grid.Row="1" Width="auto"
+                                             Visibility="{Binding ComputedHorizontalScrollBarVisibility, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}"
+                                             TargetLength="{Binding ContentWidth, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}"
+                                             TargetPosition="{Binding X, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=TwoWay}"
+                                             IsRewindingPaused="{Binding IsHorizontalScrollBarPaused, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}">
+                            <inter:ScrollBarBase.Template>
+                                <ControlTemplate TargetType="{x:Type inter:ScrollBarBase}">
+                                    <Grid>
+                                        <local:RectangleBase x:Name="PART_Base" Intensity="{StaticResource MinusIntensity}"/>
+                                        <local:RectangleBase x:Name="PART_Grip" HorizontalAlignment="Left" Intensity="{StaticResource Intensity}" Cursor="ScrollWE"
+                                                             Width="{Binding GripLength, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}">
+                                            <local:RectangleBase.RenderTransform>
+                                                <TranslateTransform X="{Binding GripPosition, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}"/>
+                                            </local:RectangleBase.RenderTransform>
+                                        </local:RectangleBase>
+                                    </Grid>
+                                </ControlTemplate>
+                            </inter:ScrollBarBase.Template>
+                        </inter:ScrollBarBase>
+                        <inter:ScrollBarBase Grid.Column="1" Height="auto"
+                                             Visibility="{Binding ComputedVerticalScrollBarVisibility, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}"
+                                             TargetLength="{Binding ContentHeight, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}"
+                                             TargetPosition="{Binding Y, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=TwoWay}"
+                                             IsRewindingPaused="{Binding IsVerticalScrollBarPaused, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}">
+                            <inter:ScrollBarBase.Template>
+                                <ControlTemplate TargetType="{x:Type inter:ScrollBarBase}">
+                                    <Grid>
+                                        <local:RectangleBase x:Name="PART_Base" Intensity="{StaticResource MinusIntensity}"/>
+                                        <local:RectangleBase x:Name="PART_Grip" VerticalAlignment="Top" Intensity="{StaticResource Intensity}" Cursor="ScrollNS"
+                                                             Height="{Binding GripLength, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}">
+                                            <local:RectangleBase.RenderTransform>
+                                                <TranslateTransform Y="{Binding GripPosition, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}"/>
+                                            </local:RectangleBase.RenderTransform>
+                                        </local:RectangleBase>
+                                    </Grid>
+                                </ControlTemplate>
+                            </inter:ScrollBarBase.Template>
+                        </inter:ScrollBarBase>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type local:RoundScrollViewer}" BasedOn="{StaticResource ScrollViewerBase}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:RoundScrollViewer}">
+                    <Grid Background="Transparent">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Canvas x:Name="PART_Canvas" ClipToBounds="True"
+                                Margin="{Binding Padding, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}">
+                            <ContentPresenter x:Name="PART_ContentHost"
+                                              Canvas.Left="{Binding X, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}"
+                                              Canvas.Top="{Binding Y, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}">
+                                <ContentPresenter.RenderTransform>
+                                    <ScaleTransform ScaleX="{Binding Scale, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}"
+                                                    ScaleY="{Binding Scale, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}"/>
+                                </ContentPresenter.RenderTransform>
+                            </ContentPresenter>
+                        </Canvas>
+                        <inter:ScrollBarBase Grid.Row="1" Width="auto" Cursor="ScrollWE"
+                                             Visibility="{Binding ComputedHorizontalScrollBarVisibility, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}"
+                                             TargetLength="{Binding ContentWidth, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}"
+                                             TargetPosition="{Binding X, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=TwoWay}"
+                                             IsRewindingPaused="{Binding IsHorizontalScrollBarPaused, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}">
+                            <inter:ScrollBarBase.Template>
+                                <ControlTemplate TargetType="{x:Type inter:ScrollBarBase}">
+                                    <Grid>
+                                        <local:RoundBase x:Name="PART_Base" Intensity="{StaticResource MinusIntensity}"/>
+                                        <local:RoundBase x:Name="PART_Grip" HorizontalAlignment="Left" Intensity="{StaticResource Intensity}"
+                                                             Width="{Binding GripLength, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}">
+                                            <local:RoundBase.RenderTransform>
+                                                <TranslateTransform X="{Binding GripPosition, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}"/>
+                                            </local:RoundBase.RenderTransform>
+                                        </local:RoundBase>
+                                    </Grid>
+                                </ControlTemplate>
+                            </inter:ScrollBarBase.Template>
+                        </inter:ScrollBarBase>
+                        <inter:ScrollBarBase Grid.Column="1" Height="auto" Cursor="ScrollNS"
+                                             Visibility="{Binding ComputedVerticalScrollBarVisibility, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}"
+                                             TargetLength="{Binding ContentHeight, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}"
+                                             TargetPosition="{Binding Y, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=TwoWay}"
+                                             IsRewindingPaused="{Binding IsVerticalScrollBarPaused, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}">
+                            <inter:ScrollBarBase.Template>
+                                <ControlTemplate TargetType="{x:Type inter:ScrollBarBase}">
+                                    <Grid>
+                                        <local:RoundBase x:Name="PART_Base" Intensity="{StaticResource MinusIntensity}"/>
+                                        <local:RoundBase x:Name="PART_Grip" VerticalAlignment="Top" Intensity="{StaticResource Intensity}"
+                                                             Height="{Binding GripLength, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}">
+                                            <local:RoundBase.RenderTransform>
+                                                <TranslateTransform Y="{Binding GripPosition, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}"/>
+                                            </local:RoundBase.RenderTransform>
+                                        </local:RoundBase>
+                                    </Grid>
+                                </ControlTemplate>
+                            </inter:ScrollBarBase.Template>
+                        </inter:ScrollBarBase>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

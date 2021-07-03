@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31112.23
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HNPStyles", "HNPStyles\HNPStyles.csproj", "{D26514D5-16F5-476C-AE2B-31088C98BEA2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestStyle", "TestStyle\TestStyle.csproj", "{F7939670-41C3-4929-8496-9A45FFF78F25}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SharedWPF", "..\SharedWPF\SharedWPF\SharedWPF.shproj", "{AE6E9D7E-4F8F-43C0-A1EB-9BCF75EF9FCB}"
+EndProject
+Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		..\SharedWPF\SharedWPF\SharedWPF.projitems*{ae6e9d7e-4f8f-43c0-a1eb-9bcf75ef9fcb}*SharedItemsImports = 13
+		..\SharedWPF\SharedWPF\SharedWPF.projitems*{f7939670-41c3-4929-8496-9a45fff78f25}*SharedItemsImports = 5
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D26514D5-16F5-476C-AE2B-31088C98BEA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D26514D5-16F5-476C-AE2B-31088C98BEA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D26514D5-16F5-476C-AE2B-31088C98BEA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D26514D5-16F5-476C-AE2B-31088C98BEA2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7939670-41C3-4929-8496-9A45FFF78F25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7939670-41C3-4929-8496-9A45FFF78F25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7939670-41C3-4929-8496-9A45FFF78F25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7939670-41C3-4929-8496-9A45FFF78F25}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {898CF9D2-863E-44B4-B9E1-3758072A729F}
+	EndGlobalSection
+EndGlobal

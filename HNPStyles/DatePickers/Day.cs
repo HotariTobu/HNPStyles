@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace HNPStyles.DatePickers
+namespace HNPStyles.Internal.DatePickers
 {
     public class Day : INotifyPropertyChanged
     {
@@ -27,6 +27,9 @@ namespace HNPStyles.DatePickers
         #region == IsFaded ==
 
         private bool _IsFaded;
+        /// <summary>
+        /// If the day is out of the month, true. else false
+        /// </summary>
         public bool IsFaded
         {
             get => _IsFaded;

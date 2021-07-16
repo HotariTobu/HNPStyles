@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 
-namespace HNPStyles.DatePickers
+namespace HNPStyles.Internal.DatePickers
 {
     public class Chunk : INotifyPropertyChanged
     {

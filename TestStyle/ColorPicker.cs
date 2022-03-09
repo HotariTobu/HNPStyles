@@ -220,6 +220,7 @@ namespace TestStyle
 
         private static Color GetColorFromHSV(double h, double s, double v)
         {
+            h = h < 1 ? h : 0;
             double max = v;
             double range = s * max;
             double min = max - range;

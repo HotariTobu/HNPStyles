@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31112.23
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32228.430
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HNPStyles", "HNPStyles\HNPStyles.csproj", "{D26514D5-16F5-476C-AE2B-31088C98BEA2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestStyle", "TestStyle\TestStyle.csproj", "{F7939670-41C3-4929-8496-9A45FFF78F25}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SharedWPF", "..\SharedWPF\SharedWPF\SharedWPF.shproj", "{AE6E9D7E-4F8F-43C0-A1EB-9BCF75EF9FCB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoStyle", "DemoStyle\DemoStyle.csproj", "{E372440B-7138-4D15-B741-ED7728363D1E}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
@@ -27,6 +29,10 @@ Global
 		{F7939670-41C3-4929-8496-9A45FFF78F25}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F7939670-41C3-4929-8496-9A45FFF78F25}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F7939670-41C3-4929-8496-9A45FFF78F25}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E372440B-7138-4D15-B741-ED7728363D1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E372440B-7138-4D15-B741-ED7728363D1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E372440B-7138-4D15-B741-ED7728363D1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E372440B-7138-4D15-B741-ED7728363D1E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
